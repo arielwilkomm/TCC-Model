@@ -33,10 +33,11 @@ import org.hibernate.validator.constraints.NotBlank;
  */
 @Entity
 @Table(name = "pessoa")
-public class Pessoa implements Serializable{
+public class Pessoa implements Serializable {
+
     @Id
     @SequenceGenerator(name = "seq_pessoa", sequenceName = "seq_pessoa_id", allocationSize = 1)
-    @GeneratedValue(generator = "seq_pessoa", strategy = GenerationType.SEQUENCE)  
+    @GeneratedValue(generator = "seq_pessoa", strategy = GenerationType.SEQUENCE)
     private Integer id;
     @NotNull(message = "O nome não pode ser nulo")
     @NotBlank(message = "O nome não pode ser em branco")
@@ -51,34 +52,34 @@ public class Pessoa implements Serializable{
     @NotBlank(message = "O cep não pode ser em branco")
     @Length(max = 8, message = "O cep não pode ter mais que {max} caracteres")
     @Column(name = "cep", length = 8, nullable = false)
-    private String cep;    
+    private String cep;
     @NotNull(message = "O endereço não pode ser nulo")
     @NotBlank(message = "O endereço não pode ser em branco")
     @Length(max = 100, message = "O endereço não pode ter mais que {max} caracteres")
     @Column(name = "endereco", length = 100, nullable = false)
-    private String endreco;   
+    private String endreco;
     @Email
     @NotNull(message = "O email não pode ser nulo")
     @NotBlank(message = "O email não pode ser em branco")
     @Length(max = 100, message = "O email não pode ter mais que {max} caracteres")
-    private String email; 
+    private String email;
     @NotNull(message = "A senha não pode ser nulo")
     @NotBlank(message = "A senha deve ser informado")
     @Length(max = 20, message = "A senha não pode ter mais de {max} caracteres")
     @Column(name = "senha", length = 20, nullable = false)
-    private String senha;    
+    private String senha;
     @NotNull(message = "O CNPJ não pode ser nulo")
     @NotBlank(message = "O CNPJ não pode ser em branco")
     @Length(max = 14, message = "O CNPJ não pode ter mais que {max} caracteres")
     @Column(name = "cnpj", length = 14, nullable = false)
-    private String cnpj;    
+    private String cnpj;
     @NotNull(message = "O bairro não pode ser nulo")
     @NotBlank(message = "O bairro não pode ser em branco")
     @Length(max = 100, message = "O bairro não pode ter mais que {max} caracteres")
     @Column(name = "bairro", length = 100, nullable = false)
-    private String bairro;    
-    private Boolean administrador;    
-    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL, 
+    private String bairro;
+    private Boolean administrador;
+    @OneToMany(mappedBy = "pessoa", cascade = CascadeType.ALL,
             orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Telefone> telefones = new ArrayList<>();
 
@@ -96,7 +97,16 @@ public class Pessoa implements Serializable{
         this.cnpj = cnpj;
         this.bairro = bairro;
         this.administrador = false;
-    }   
+    }
+
+    public void adicionarTelefones(Telefone obj) {
+        obj.setPessoa(this);
+        this.telefones.add(obj);
+    }
+
+    public void removerTelefones(int idx) {
+        this.telefones.remove(idx);
+    }
 
     public Integer getId() {
         return id;
@@ -210,7 +220,5 @@ public class Pessoa implements Serializable{
     public void setTelefones(List<Telefone> telefones) {
         this.telefones = telefones;
     }
-    
-    
-    
+
 }

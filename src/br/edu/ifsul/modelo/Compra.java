@@ -58,6 +58,24 @@ public class Compra implements Serializable{
         this.pessoa = pessoa;
     }
 
+    public void adicionarItens(CompraItens obj){
+        obj.setCompra(this);
+        this.itens.add(obj);
+    }
+    
+    public void removerItens(int idx){
+        this.itens.remove(idx);
+    }
+    
+    public void adicionarContas(ContasPagar obj){
+        obj.setCompra(this);
+        this.contasPagar.add(obj);
+    }
+    
+    public void removerContas(int idx){
+        this.contasPagar.remove(idx);
+    }
+    
     public Compra() {
     }
 

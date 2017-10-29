@@ -58,6 +58,24 @@ public class Venda implements Serializable {
         this.data = data;
         this.pessoa = pessoa;
     }
+    
+    public void adicionarItens(VendaItens obj){
+        obj.setVenda(this);
+        this.itens.add(obj);
+    }
+    
+    public void removerItens(int idx){
+        this.itens.remove(idx);
+    }
+    
+    public void adicionarContas(ContasReceber obj){
+        obj.setVenda(this);
+        this.contasReceber.add(obj);
+    }
+    
+    public void removerContas(int idx){
+        this.contasReceber.remove(idx);
+    }
 
     public Venda() {
     }

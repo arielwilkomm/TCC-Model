@@ -20,8 +20,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Telefone implements Serializable{
 
     @Id
-    @SequenceGenerator(name = "seq_telefone", sequenceName = "seq_telefone_id",
-            allocationSize = 1)
+    @SequenceGenerator(name = "seq_telefone", sequenceName = "seq_telefone_id", allocationSize = 1)
     @GeneratedValue(generator = "seq_telefone", strategy = GenerationType.SEQUENCE)
     private Integer id;
     @NotNull(message = "O numero não pode ser nulo")
